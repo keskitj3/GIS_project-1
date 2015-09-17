@@ -20,33 +20,38 @@
     
     <section class="main-content">
       <h3>OpenLayers Map</h3>
+      
       <div id="map" style="height:450px"></div>
       <script>
+      
       map = new OpenLayers.Map("map",
-      {
-      units:'m',
-      controls: [new OpenLayers.Control.Navigation()]
+        {
+        units:'m',
+        controls: [new OpenLayers.Control.Navigation()]
       });
       OSMmap = new OpenLayers.Layer.OSM();
-      //map.addLayer(OSMmap);
+      
       var wms = new OpenLayers.Layer.WMS("Liikuntapaikat",
-      "http://localhost:8080/geoserver/GIS_project/wms",
-      {
-      layers: "GIS_project:lipas_kaikki_pisteet",
-      transparent: true,
-      format: 'image/png'
-      },
-      {
-      'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'
+        "http://localhost:8080/geoserver/GIS_project/wms",
+        {
+        layers: "GIS_project:lipas_kaikki_pisteet",
+        transparent: true,
+        format: 'image/png'
+        },
+        {
+        'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'
       });
+      
       map.addLayers([OSMmap, wms]);
       lon = 2763700;
       lat = 8441000;
+      
       map.setCenter(new OpenLayers.LonLat([lon,lat]), [10]);
       map.addControl(new OpenLayers.Control.LayerSwitcher());
       map.addControl(new OpenLayers.Control.ScaleLine());
       map.addControl(new OpenLayers.Control.MousePosition());
       map.addControl(new OpenLayers.Control.PanZoomBar());
+      
       </script>
       
       <footer class="site-footer">
