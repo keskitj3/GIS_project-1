@@ -3,63 +3,67 @@
   <head>
     <meta charset="UTF-8">
     <title>GIS_project</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <!--<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">-->
     <script type='text/javascript' src='http://www.openlayers.org/api/OpenLayers.js'></script>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-    
   </head>
   
-  <body>
+  <body bgcolor="green">
     <section class="page-header">
-    <h1 class="project-name">GIS project</h1>
-    <h2 class="project-tagline"></h2>
+      <h1 class="project-name"><font color="white">OpenLayers Map<font/></h1>
     </section>
-    
-    
+  
     <section class="main-content">
-      <h3>OpenLayers Map</h3>
+      <div id="map" style="height:500px"></div>
       
-      <div id="map" style="height:450px"></div>
       <script>
+        map = new OpenLayers.Map("map", 
+          {
+	  units:'m',
+	  controls: [new OpenLayers.Control.Navigation()]
+        });
+        OSMmap = new OpenLayers.Layer.OSM();
+        //map.addLayer(OSMmap);
+
+        var wms = new OpenLayers.Layer.WMS("Liikuntapaikat", "http://localhost:8080/geoserver/GIS_project/wms",
+            	{layers: "GIS_project:lipas_kaikki_pisteet",
+            	transparent: true,
+            	format: 'image/png'},
+            	{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
+        map.addLayers([OSMmap, wms]);
+        
+        var lat = 60.170833;
+        var lon = 24.9375;
+        var zoom = 14;
       
-      map = new OpenLayers.Map("map",
-        {
-        units:'m',
-        controls: [new OpenLayers.Control.Navigation()]
-      });
-      OSMmap = new OpenLayers.Layer.OSM();
+        var markers = new OpenLayers.Layer.Markers( "Markers" );
+        map.addLayer(markers);
       
-      var wms = new OpenLayers.Layer.WMS("Liikuntapaikat",
-        "http://localhost:8080/geoserver/GIS_project/wms",
-        {
-        layers: "GIS_project:lipas_kaikki_pisteet",
-        transparent: true,
-        format: 'image/png'
-        },
-        {
-        'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'
-      });
+        // Recenter on user position
+        navigator.geolocation.getCurrentPosition(function(position) {
+      	  	document.getElementById('Location').innerHTML= 
+      	  	" Latitude: " + 
+      	  	position.coords.latitude + 
+      	  	" Longitude: " +
+      	  	position.coords.longitude;
+      	
+      	var lonLat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude)
+      		.transform(new OpenLayers.Projection("EPSG:4326"), //transform from WGS 1984
+      		map.getProjectionObject()); //to Spherical Mercator Projection
+      		markers.addMarker(new OpenLayers.Marker(lonLat));
+        map.setCenter(lonLat, zoom);
+        });
       
-      map.addLayers([OSMmap, wms]);
-      lon = 2763700;
-      lat = 8441000;
-      
-      map.setCenter(new OpenLayers.LonLat([lon,lat]), [10]);
-      map.addControl(new OpenLayers.Control.LayerSwitcher());
-      map.addControl(new OpenLayers.Control.ScaleLine());
-      map.addControl(new OpenLayers.Control.MousePosition());
-      map.addControl(new OpenLayers.Control.PanZoomBar());
-      
+        map.addControl(new OpenLayers.Control.LayerSwitcher());
+        map.addControl(new OpenLayers.Control.ScaleLine());
+        map.addControl(new OpenLayers.Control.MousePosition());
+        map.addControl(new OpenLayers.Control.PanZoomBar());
       </script>
       
+      <p id="Location"></p>
+      
       <footer class="site-footer">
-      <h>GIS Software Development course</h>
+        <h>GIS Software Development course</h>
       </footer>
-    
+
     </section>
   </body>
 </html>
