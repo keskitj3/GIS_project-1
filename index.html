@@ -13,7 +13,7 @@
 }
 #nav {
     line-height:30px;
-    background-color:#eeeeee;
+    background-color:green;
     height:300px;
     width:100px;
     float:left;
@@ -28,7 +28,7 @@
     background-color:black;
     color:white;
     clear:both;
-    text-align:center;
+    text-align:left;
    padding:5px;	 	 
 }
     </style>
@@ -40,13 +40,13 @@
     <div id="nav">
     <button type="button" onclick="alert('Doesn't work yet')">Find route</button>
     <button type="button" onclick="alert('Doesn't work yet')">Analyze</button>
-    </div>
     
     <form name="input" action="javascript: submitform();" method="post">
     <label for="query">Search for address:</label> <input type="text" id="query" size=50 name="query"
                                                           value="Type an address"/>
     <input type="submit" value="Search"/>
     </form>
+    </div>
 
     <section class="main-content">
       <div id="map" style="height:500px"></div>
@@ -97,9 +97,9 @@
       
       <p id="Location"></p>
       
-      <footer class="site-footer">
+      <div id=footer>
         <h>GIS Software Development course</h>
-      </footer>
+      </div>
 
     </section>
   </body>
