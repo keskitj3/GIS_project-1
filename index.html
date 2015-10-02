@@ -25,7 +25,7 @@
     padding:10px;	 	 
 }
 #footer {
-    background-color:black;
+    background-color:green;
     color:white;
     clear:both;
     text-align:left;
@@ -37,19 +37,20 @@
   <body>
     <div id="header">
     <h1>Liikuntapaikat kartalla</h1>
-    <div id="nav">
-    <button type="button" onclick="alert('Doesn't work yet')">Find route</button>
-    <button type="button" onclick="alert('Doesn't work yet')">Analyze</button>
-    
     <form name="input" action="javascript: submitform();" method="post">
     <label for="query">Search for address:</label> <input type="text" id="query" size=50 name="query"
                                                           value="Type an address"/>
     <input type="submit" value="Search"/>
     </form>
     </div>
+    
+    <div id="nav">
+    <button type="button" onclick="alert('Doesn't work yet')">Find route</button>
+    <button type="button" onclick="alert('Doesn't work yet')">Analyze</button>
+    </div>
 
     <section class="main-content">
-      <div id="map" style="height:500px"></div>
+      <div id="map" style="height:500px width:700px"></div>
       
       <script>
         map = new OpenLayers.Map("map", 
