@@ -9,13 +9,10 @@
     background-color:green;
     color:black;
     text-align:center;
-    margin:0;
-    padding:0;
-    	}
+      	}
 	#nav {
     line-height:30px;
     background-color:blue;
-    height:300px;
     width:90px;
     float:left;
 	}
@@ -49,7 +46,7 @@
     </div>
 
     <section class="main-content">
-      <div id="map" style="height:500px; width:100%;"></div>
+      <div id="map" style="height:500px; width:100%; overflow:hidden"></div>
       
       <script>
         map = new OpenLayers.Map("map", 
