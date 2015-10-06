@@ -6,20 +6,20 @@
     <script type='text/javascript' src='http://www.openlayers.org/api/OpenLayers.js'></script>
     <style>
  	#header {
-    background-color:green;
+    background-color:#006600;
     color:black;
     text-align:center;
     width:100%;
       	}
 	#nav {
     line-height:30px;
-    background-color:blue;
+    background-color:#00CC00;
     width:10%;
     height:500px;
     float:left;
 	}
 	#footer {
-    background-color:green;
+    background-color:#006600;
     color:black;
     clear:both;
     text-align:left;
@@ -31,13 +31,13 @@
   <body>
     <div id="header">
     <h1>Liikuntapaikat kartalla</h1>
-    </div>
-    
+   
     <form name="input" action="javascript: submitform();" method="post">
     <label for="query">Search for address:</label> <input type="text" id="query" size=50 name="query"
                                                           value="Type an address"/>
-    <input type="submit" value="Search"/>
+    <input type="submit" value="Locate"/>
     </form>
+    </div>
     
     <div id="nav">
     <button type="button" onclick="alert('Doesn't work yet');">Find route</button>
@@ -91,9 +91,8 @@
         map.addControl(new OpenLayers.Control.PanZoomBar());
       </script>
       
-      <p id="Location"></p>
-      
       <div id=footer>
+      	<p id="Location"></p>
         <h>GIS Software Development course</h>
       </div>
 
