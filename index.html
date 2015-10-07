@@ -4,20 +4,42 @@
     <meta charset="UTF-8">
     <title>GIS_project</title>
     <script type='text/javascript' src='http://www.openlayers.org/api/OpenLayers.js'></script>
+    <style>
+ 	#header {
+    background-color:#006600;
+    color:black;
+    text-align:center;
+    width:100%;
+      	}
+	#nav {
+    line-height:30px;
+    background-color:#00CC00;
+    width:10%;
+    height:500px;
+    float:left;
+	}
+	#footer {
+    background-color:#006600;
+    color:black;
+    clear:both;
+    text-align:left;
+    width:100%;
+	}
+    </style>
   </head>
   
   <body>
     
     <!-- Header osio, johon tulee otsikko ja ehka joki valikko -->
-    <section class="page-header">
-      <h1 class="project-name">OpenLayers Map</h1>
-    </section>
+    <div id="header">
+    <h1>Liikuntapaikat kartalla</h1>
+    </div>
   
     <!-- Tassa osiossa luodaan kartta ja lisataan siihen funktiot -->
     <section class="main-content">
       
       <!-- Lisaa kartan halutulla koolla -->
-      <div id="map" style="height:500px"></div>
+      <div id="map" style="height:500px; width:90%"></div>
       
       <!-- Tassa scriptissa luodaan kaikki kartassa esiintyvat funktiot ja tyokalut -->
       <script>
@@ -97,9 +119,9 @@
       <p id="Location"></p>
       
       <!-- Tahan voidaan laittaa sivun alaosan tietoja, kuten tekijat ja copyright merkinnat -->
-      <footer class="site-footer">
-        <h>GIS Software Development course</h>
-      </footer>
+      <div id=footer>
+      	<p>GIS Software Development course</p>
+      </div>
 
     </section>
   </body>
