@@ -7,13 +7,7 @@
     <script type='text/javascript' src='http://www.openlayers.org/api/OpenLayers.js'></script>
     <style>
     
-    @media only screen and (max-device-width: 480px) {
-	#nav {
-		width:100%;
-		
-}
-    
- 	#header {
+    	#header {
     background-color:#006600;
     color:black;
     text-align:center;
@@ -85,7 +79,7 @@
         	{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
 	
         // Lisaa WFS tason, mutta jostai syysta se ei toimi :(
-	var wfs = new OpenLayers.Layer.Vector("WFS", {
+<!--	var wfs = new OpenLayers.Layer.Vector("WFS", {
 		strategies: [new OpenLayers.Strategy.Fixed()],
 		protocol: new OpenLayers.Protocol.WFS({
 			version: "1.1.0",
@@ -93,7 +87,21 @@
 			featureType: "WMS:WFS_pisteet",
 			featureNS: "pesonet1.github.io/GIS_project",
 			geometryName: "the_geom"})
-		});
+		}); -->
+		
+	 var wfs = new OpenLayers.Layer.Vector(
+            "WFS",
+            {strategies: [new OpenLayers.Strategy.Fixed()],
+            	projection: new OpenLayers.Projection("EPSG:4326"),
+                protocol: new OpenLayers.Protocol.WFS({
+                    version: "1.1.1",
+                    url: "http://130.233.249.20:8080/geoserver/wfs",
+                    //featurePrefix: 'myWorkspace', //geoserver worspace name
+                    featureType: "WMS:WFS_pisteet", //geoserver Layer Name
+                    featureNS: "pesonet1.github.io/GIS_project", // Edit Workspace Namespace URI
+                    geometryName: "the_geom" // field in Feature Type details with type "Geometry"
+                })
+            }); 
         
 	// Lisataan aikasemmin luodut tasot kartalle
         map.addLayers([OSMmap, wms, vaesto, vaesto_kp, wfs]);
