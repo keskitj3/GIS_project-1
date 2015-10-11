@@ -6,19 +6,25 @@
     <script type='text/javascript' src='http://www.openlayers.org/api/OpenLayers.js'></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-	    #header {
+	#header {
 	background-color:#006600;
 	color:black;
 	text-align:center;
 	width:100%;
 	      	}
-	    #nav {
+	#nav {
 	line-height:30px;
 	background-color:#00CC00;
 	width:10%;
 	float:left;
 		}
-	    #footer {
+	
+	#map {
+	height:500px;
+	width:90%;
+		}
+	
+	#footer {
 	background-color:#006600;
 	color:black;
 	clear:both;
@@ -30,6 +36,11 @@
 	#nav {
         width:100%;
             }
+        
+        #map {
+        width:100%;
+        height:100%;
+         }
  
 }
     </style>
@@ -139,7 +150,8 @@
     </div>
 
     <!-- Lisaa kartan halutulla koolla -->
-    <div id="map" style="height:500px; width:90%"></div>
+    <div id="map">
+    </div>
     
     <!-- Sijoittaa sijannin funktiosta sivulle haluttuun paikkaan -->
     <p id="Location"></p>
