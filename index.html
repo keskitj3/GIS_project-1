@@ -16,7 +16,7 @@
 	
 	#nav {
 	line-height:10px;
-	background-color:yellow;
+	background-color:green;
 	width:10%;
 	height:500px;
 	float:left;
@@ -120,7 +120,7 @@
 	map.addLayer(markers);
 	
 	// Etsii kayttajan sijainnin ja tallentaa sen Location nimiseen elementtiin, jota voidaan kutsua universaalisti
-	<!-- navigator.geolocation.getCurrentPosition(function(position) {
+	navigator.geolocation.getCurrentPosition(function(position) {
 		document.getElementById('Location').innerHTML= 
 		" Latitude: " + position.coords.latitude + 
 		" Longitude: " + position.coords.longitude;
@@ -129,10 +129,10 @@
 		var lonLat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude)
 		.transform(new OpenLayers.Projection("EPSG:4326"), // Muuttaa koordinaatiston WGS 1984:sta EPSG 4326:n
 		
-		map.getProjectionObject()); // to Spherical Mercator Projection -->
+		map.getProjectionObject()); // to Spherical Mercator Projection 
 		markers.addMarker(new OpenLayers.Marker(lonLat)); // Lisaa markkerin haetulle sijainnille
 		map.setCenter(lonLat, zoom); // Asettaa kartan kyseiselle sijainnille 
-	//});
+	});
 	
 	// Lisataan kartalle muutamat tarkeat controllit
         map.addControl(new OpenLayers.Control.LayerSwitcher());
@@ -141,23 +141,8 @@
         map.addControl(new OpenLayers.Control.PanZoomBar());
         
       }
-      
-      function locate() {navigator.geolocation.getCurrentPosition(function(position) {
-		document.getElementById('Location').innerHTML= 
-		" Latitude: " + position.coords.latitude + 
-		" Longitude: " + position.coords.longitude;
-		
-		// Tallentaa koordinaatit lonlat muuttujaan
-		var lonLat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude)
-		.transform(new OpenLayers.Projection("EPSG:4326"), // Muuttaa koordinaatiston WGS 1984:sta EPSG 4326:n
-		
-		map.getProjectionObject()); // to Spherical Mercator Projection
-		markers.addMarker(new OpenLayers.Marker(lonLat)); // Lisaa markkerin haetulle sijainnille
-		map.setCenter(lonLat, zoom); // Asettaa kartan kyseiselle sijainnille
-	});
-     }
      
-    </script>
+     </script>
   </head>
 	
   <body onload="init()">
