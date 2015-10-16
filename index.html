@@ -16,7 +16,7 @@
 	
 	#nav {
 	line-height:10px;
-	background-color:red;
+	background-color:yellow;
 	width:10%;
 	height:500px;
 	float:left;
@@ -112,8 +112,7 @@
 	map.addLayers([OSMmap, wms, vaesto, vaesto_kp, wfs]);
 		
 	// Asetetaan perusnakyman parametrit eli sijainti ja zoomaus taso
-	var lat = 60.170833;
-	var lon = 24.9375;
+	var lonLat = 24.9375,60.170833;
 	var zoom = 14;
 	
 	// Lisaa merkintakuviot yhdeksi tasoksi
@@ -130,10 +129,10 @@
 		var lonLat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude)
 		.transform(new OpenLayers.Projection("EPSG:4326"), // Muuttaa koordinaatiston WGS 1984:sta EPSG 4326:n
 		
-		map.getProjectionObject()); // to Spherical Mercator Projection
+		map.getProjectionObject()); // to Spherical Mercator Projection -->
 		markers.addMarker(new OpenLayers.Marker(lonLat)); // Lisaa markkerin haetulle sijainnille
 		map.setCenter(lonLat, zoom); // Asettaa kartan kyseiselle sijainnille 
-	}); -->
+	//});
 	
 	// Lisataan kartalle muutamat tarkeat controllit
         map.addControl(new OpenLayers.Control.LayerSwitcher());
