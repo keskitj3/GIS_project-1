@@ -16,7 +16,7 @@
 	
 	#nav {
 	line-height:10px;
-	background-color:yellow;
+	background-color:green;
 	width:10%;
 	height:500px;
 	float:left;
@@ -142,6 +142,22 @@
         map.addControl(new OpenLayers.Control.PanZoomBar());
         
       }
+      
+      function locate() {navigator.geolocation.getCurrentPosition(function(position) {
+		document.getElementById('Location').innerHTML= 
+		" Latitude: " + position.coords.latitude + 
+		" Longitude: " + position.coords.longitude;
+		
+		// Tallentaa koordinaatit lonlat muuttujaan
+		var lonLat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude)
+		.transform(new OpenLayers.Projection("EPSG:4326"), // Muuttaa koordinaatiston WGS 1984:sta EPSG 4326:n
+		
+		map.getProjectionObject()); // to Spherical Mercator Projection
+		markers.addMarker(new OpenLayers.Marker(lonLat)); // Lisaa markkerin haetulle sijainnille
+		map.setCenter(lonLat, zoom); // Asettaa kartan kyseiselle sijainnille
+	});
+     }
+     
     </script>
   </head>
 	
@@ -154,8 +170,9 @@
     
     <!-- Sivupalkki -->
     <div id="nav">
-    	<button type="button" onclick="alert('Doesn't work yet');">Find route</button>
-    	<button type="button" onclick="alert('Doesn't work yet');">Analyze</button>
+    	<button type="button" onclick="locate()">Show my location</button>
+    	<button type="button" onclick="alert('Doesn't work yet')">Find route</button>
+    	<button type="button" onclick="alert('Doesn't work yet')">Analyze</button>
     </div>
 
     <!-- Lisaa kartan halutulla koolla -->
