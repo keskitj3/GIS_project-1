@@ -16,7 +16,7 @@
 	
 	#nav {
 	line-height:10px;
-	background-color:red;
+	background-color:blue;
 	width:10%;
 	height:500px;
 	float:left;
@@ -112,15 +112,20 @@
 	map.addLayers([OSMmap, wms, vaesto, vaesto_kp, wfs]);
 		
 	// Asetetaan perusnakyman parametrit eli sijainti ja zoomaus taso
-	//var lon = 24.9375;
-	//var lat = 60.170833;
-	//var zoom = 14; 
+	var lon = 24.830084;
+	var lat = 60.184140;
+	var zoom = 14;
+	var lonLat = new OpenLayers.LonLat(lon, lat)
+		.transform(new OpenLayers.Projection("EPSG:4326"),
+		map.getProjectionObject()); // to Spherical Mercator Projection 
+		markers.addMarker(new OpenLayers.Marker(lonLat)); // Lisaa markkerin haetulle sijainnille
+		map.setCenter(lonLat, zoom); // Asettaa kartan kyseiselle sijainnille 
 	
 	// Lisaa merkintakuviot yhdeksi tasoksi
 	var markers = new OpenLayers.Layer.Markers("Markers");
 	map.addLayer(markers);
 	
-	// Etsii kayttajan sijainnin ja tallentaa sen Location nimiseen elementtiin, jota voidaan kutsua universaalisti
+	<!-- // Etsii kayttajan sijainnin ja tallentaa sen Location nimiseen elementtiin, jota voidaan kutsua universaalisti
 	navigator.geolocation.getCurrentPosition(function(position) {
 		document.getElementById('Location').innerHTML= 
 		" Latitude: " + position.coords.latitude + 
@@ -133,7 +138,7 @@
 		map.getProjectionObject()); // to Spherical Mercator Projection 
 		markers.addMarker(new OpenLayers.Marker(lonLat)); // Lisaa markkerin haetulle sijainnille
 		map.setCenter(lonLat, zoom); // Asettaa kartan kyseiselle sijainnille 
-	});
+	}); -->
 	
 	// Lisataan kartalle muutamat tarkeat controllit
         map.addControl(new OpenLayers.Control.LayerSwitcher());
