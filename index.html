@@ -16,7 +16,7 @@
 	
 	#nav {
 	line-height:10px;
-	background-color:blue;
+	background-color:green;
 	width:10%;
 	height:500px;
 	float:left;
@@ -118,8 +118,8 @@
 	var lonLat = new OpenLayers.LonLat(lon, lat)
 		.transform(new OpenLayers.Projection("EPSG:4326"),
 		map.getProjectionObject()); // to Spherical Mercator Projection 
-		markers.addMarker(new OpenLayers.Marker(lonLat)); // Lisaa markkerin haetulle sijainnille
-		map.setCenter(lonLat, zoom); // Asettaa kartan kyseiselle sijainnille 
+		markers.addMarker(new OpenLayers.Marker(lon, Lat)); // Lisaa markkerin haetulle sijainnille
+		map.setCenter(lon, lat, zoom); // Asettaa kartan kyseiselle sijainnille 
 	
 	// Lisaa merkintakuviot yhdeksi tasoksi
 	var markers = new OpenLayers.Layer.Markers("Markers");
