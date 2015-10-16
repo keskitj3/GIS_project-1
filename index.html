@@ -16,7 +16,7 @@
 	
 	#nav {
 	line-height:10px;
-	background-color:green;
+	background-color:red;
 	width:10%;
 	height:500px;
 	float:left;
@@ -121,7 +121,7 @@
 	map.addLayer(markers);
 	
 	// Etsii kayttajan sijainnin ja tallentaa sen Location nimiseen elementtiin, jota voidaan kutsua universaalisti
-	navigator.geolocation.getCurrentPosition(function(position) {
+	<!-- navigator.geolocation.getCurrentPosition(function(position) {
 		document.getElementById('Location').innerHTML= 
 		" Latitude: " + position.coords.latitude + 
 		" Longitude: " + position.coords.longitude;
@@ -132,8 +132,8 @@
 		
 		map.getProjectionObject()); // to Spherical Mercator Projection
 		markers.addMarker(new OpenLayers.Marker(lonLat)); // Lisaa markkerin haetulle sijainnille
-		map.setCenter(lonLat, zoom); // Asettaa kartan kyseiselle sijainnille
-	});
+		map.setCenter(lonLat, zoom); // Asettaa kartan kyseiselle sijainnille 
+	}); -->
 	
 	// Lisataan kartalle muutamat tarkeat controllit
         map.addControl(new OpenLayers.Control.LayerSwitcher());
