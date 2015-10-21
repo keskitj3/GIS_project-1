@@ -1,69 +1,38 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <meta charset="UTF-8">
-    <title>GIS_project</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-cabaple" content="yes">
+    <title>Liikuntapaikat kartalla</title>
     <script type='text/javascript' src='http://www.openlayers.org/api/OpenLayers.js'></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-	#header {
-	//background-color:#006600;
+	    #header {
+	background-color:#006600;
 	color:black;
 	text-align:center;
-	width:100%
-	background-image:url("https://www.budgetsport.fi/themes/budgetsport/images/kuntoilu-kuva.jpg");
-		}
-	
-	#nav {
-	line-height:10px;
-	background-color:red;
+	width:70%;
+	      	}
+	    #nav {
+	line-height:30px;
+	background-color:#00CC00;
 	width:10%;
-	height:500px;
 	float:left;
 		}
-	
-	#map {
-	width:90%;
-	height:500px;
-		}
-	
-	#footer {
+	    #footer {
 	background-color:#006600;
 	color:black;
 	clear:both;
 	text-align:left;
-	width:100%;
+	width:70%;
 	    	}
-	    	
-    @media screen and (max-width: 500px) {
-    	#header {
-    	font-size: 0,8em
-    	}
-    	
-	#nav {
-        width:100%;
-        height:100%;
-        float:none;
-        background-color:yellow;
-            }
-        
-        #map {
-        width:100%;
-                }
- 
-}
     </style>
     
     <!-- Tassa scriptissa luodaan kaikki kartassa esiintyvat funktiot ja tyokalut -->
     <script>
       var map
-      OpenLayers.ProxyHost = "http://130.233.249.20:8080/cgi-bin/proxy.cgi";
-      
+      OpenLayers.ProxyHost = "/cgi-bin/proxy.cgi?url=";
       function init() {
-      	// allow testing of specific renderers via "?renderer=Canvas", etc
-    	var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
-    	renderer = (renderer) ? [renderer] : OpenLayers.Layer.Vector.prototype.renderers;
-      	
       	// Luo kartan, jossa on navigointi mahdollisuus
       	map = new OpenLayers.Map("map", 
 		{units:'m',
@@ -73,10 +42,9 @@
 	// Lisaa openstreetmapin layeriksi
 	OSMmap = new OpenLayers.Layer.OSM();
 	
-	// http://localhost:8080/geoserver/GIS_project/wms, GIS_project:lipas_kaikki_pisteet
 	// Luodaan WMS taso, kutsumalla se geoserverilta. Samalla asetetaan sille halutut parametrit
-	var wms = new OpenLayers.Layer.WMS("Liikuntapaikat", "http://130.233.249.20:8080/geoserver/WMS/wms",
-		{layers: "WMS:wms-testi",
+	var liikuntapaikat = new OpenLayers.Layer.WMS("Liikuntapaikat WMS", "http://130.233.249.20:8080/geoserver/WMS/wms",
+		{layers: "WMS:liikuntapaikat",
 		transparent: true,
 		format: 'image/png'},
 		{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
@@ -92,28 +60,24 @@
 		transparent: true,
 		format: 'image/png'},
 		{'opacity': 0.66, 'isBaseLayer': false, projection: 'EPSG:900913'});
-
-	// Lisaa WFS tason, mutta jostai syysta se ei toimi :(
-	var wfs = new OpenLayers.Layer.Vector("WFS", {
-		strategies: [new OpenLayers.Strategy.Fixed()],
-		projection: new OpenLayers.Projection("ESPG:3067"),
+ 
+	// Lisaa WFS tason
+	var liikuntapaikat_wfs = new OpenLayers.Layer.Vector("Liikuntapaikat WFS", {
+		strategies: [new OpenLayers.Strategy.BBOX()],
 		protocol: new OpenLayers.Protocol.WFS({
 			version: "1.1.0",
 			url: "http://130.233.249.20:8080/geoserver/wfs",
 			featurePrefix : "WMS",
 			featureType: "WFS_pisteet",
-			featureNS: "pesonet1.github.io/GIS_project",
+			featureNS: "http://130.233.249.20",
 			geometryName: "the_geom",
-			srsName: "EPSG:3067"}),
-			renderers: renderer
+			srsName: "EPSG:4326"})
 		});
-	
 	// Lisataan aikasemmin luodut tasot kartalle
-	map.addLayers([OSMmap, wms, vaesto, vaesto_kp, wfs]);
-		
+	map.addLayers([OSMmap, liikuntapaikat, vaesto, vaesto_kp, liikuntapaikat_wfs]);
 	// Asetetaan perusnakyman parametrit eli sijainti ja zoomaus taso
-	var lon = 24.830084;
-	var lat = 60.184140;
+	var lat = 60.170833;
+	var lon = 24.9375;
 	var zoom = 14;
 	
 	// Lisaa merkintakuviot yhdeksi tasoksi
@@ -130,20 +94,18 @@
 		var lonLat = new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude)
 		.transform(new OpenLayers.Projection("EPSG:4326"), // Muuttaa koordinaatiston WGS 1984:sta EPSG 4326:n
 		
-		map.getProjectionObject()); // to Spherical Mercator Projection 
+		map.getProjectionObject()); // to Spherical Mercator Projection
 		markers.addMarker(new OpenLayers.Marker(lonLat)); // Lisaa markkerin haetulle sijainnille
-		map.setCenter(lonLat, zoom); // Asettaa kartan kyseiselle sijainnille 
+		map.setCenter(lonLat, zoom); // Asettaa kartan kyseiselle sijainnille
 	});
-	
 	// Lisataan kartalle muutamat tarkeat controllit
-        map.addControl(new OpenLayers.Control.LayerSwitcher());
-        map.addControl(new OpenLayers.Control.ScaleLine());
-        map.addControl(new OpenLayers.Control.MousePosition());
-        map.addControl(new OpenLayers.Control.PanZoomBar());
-        
+	map.addControl(new OpenLayers.Control.LayerSwitcher());
+	map.addControl(new OpenLayers.Control.ScaleLine());
+	map.addControl(new OpenLayers.Control.Mouseposition());
+	map.addControl(new OpenLayers.Control.PanZoomBar());
+	
       }
-     
-     </script>
+    </script>
   </head>
 	
   <body onload="init()">
@@ -154,15 +116,15 @@
     </div>
     
     <!-- Sivupalkki -->
+    <!--
     <div id="nav">
-    	<button type="button" onclick="locate()">Show my location</button>
-    	<button type="button" onclick="alert('Doesn't work yet')">Find route</button>
-    	<button type="button" onclick="alert('Doesn't work yet')">Analyze</button>
+    	<button type="button" onclick="alert('Doesn't work yet');">Find route</button>
+    	<button type="button" onclick="alert('Doesn't work yet');">Analyze</button>
     </div>
-
+    -->
+    
     <!-- Lisaa kartan halutulla koolla -->
-    <div id="map">
-    </div>
+    <div id="map" style="height:500px; width:70%"></div>
     
     <!-- Sijoittaa sijannin funktiosta sivulle haluttuun paikkaan -->
     <p id="Location"></p>
