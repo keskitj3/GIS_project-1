@@ -15,12 +15,13 @@
 	color:black;
 	text-align:center;
 	width:100%;
+	font-family: Arial;
+	text-align:center;
 	      	}
 	    #nav {
 	line-height:30px;
-	background-color:yellow;
+	background-color:green;
 	width:100%;
-	// float:left;
 		}
 	    #footer {
 	background-color:#006600;
@@ -123,9 +124,9 @@
     <!-- Sivupalkki -->
     <div class="container-fluid">
     	<div id="nav">
-    		<button type="button" class="btn btn-default">Show current location</button>
-    		<button type="button" class="btn btn-default">Find route</button>
-    		<button type="button" class="btn btn-default">Analyze</button>
+    		<button type="button" class="btn btn-primary">Show current location</button>
+    		<button type="button" class="btn btn-primary">Find route</button>
+    		<button type="button" class="btn btn-primary">Analyze</button>
     	</div>
     </div>
     
@@ -136,7 +137,9 @@
     </div>
     
     <!-- Sijoittaa sijannin funktiosta sivulle haluttuun paikkaan -->
-    <p id="Location"></p>
+    <div class="container-fluid">
+    	<p id="Location"></p>
+    </div>
     
     <!-- Tahan voidaan laittaa sivun alaosan tietoja, kuten tekijat ja copyright merkinnat -->
     <div class="container-fluid">
