@@ -4,6 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="apple-mobile-web-app-cabaple" content="yes">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <title>Liikuntapaikat kartalla</title>
     <script type='text/javascript' src='http://www.openlayers.org/api/OpenLayers.js'></script>
     <style>
@@ -111,8 +114,10 @@
   <body onload="init()">
   	
     <!-- Header osio, johon tulee otsikko ja ehka joki valikko -->
-    <div id="header">
-    	<h1>Liikuntapaikat kartalla</h1>
+    <div class="container-fluid">
+    	<div id="header">
+    		<h1>Liikuntapaikat kartalla</h1>
+    	</div>
     </div>
     
     <!-- Sivupalkki -->
@@ -124,14 +129,18 @@
     -->
     
     <!-- Lisaa kartan halutulla koolla -->
-    <div id="map" style="height:500px; width:70%"></div>
+    <div class="container-fluid">
+    	<div id="map" style="height:500px; width:70%"></div>
+    </div>
     
     <!-- Sijoittaa sijannin funktiosta sivulle haluttuun paikkaan -->
     <p id="Location"></p>
     
     <!-- Tahan voidaan laittaa sivun alaosan tietoja, kuten tekijat ja copyright merkinnat -->
-    <div id="footer">
-    	<h>GIS Software Development course</h>
+    <div class="container-fluid">
+    	<div id="footer">
+    		<h>GIS Software Development course</h>
+    	</div>
     </div>
 
   </body>
